@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Quartz with multiple Schedulers</h1>
+    <p class="lead">This is the demo to demo multiple schedulers configured to same database storage, giving us the flexibility to select which 
+    listener to select to complete the job. One scenario could be when we want to execute long running jobs on some remote server and quick running 
+    jobs on local server. It also gives us the flexibility to add more listeners to the application depending on volume and memory.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Run jobs remotely</h2>
+        <p>
+            This button will schedule the job and save it to the database and will be executed by the listener running remotely. 
+            The listerning running locally or any other schedulers that are configured to connect to same database will not run the job.
+        </p>
+        @Html.ActionLink("Start Job Remotely", "Remote", "Home", new { }, new { @class = "btn btn-primary" })
+    </div>
+    <div class="col-md-6">
+        <h2>Run jobs local</h2>
+        <p>
+            This button will schedule the job, save it to the database and will be executed by the listener running locally.
+            The listerning running remotely or any other schedulers that are configured to connect to same database will not run the job.
+        </p>
+        @Html.ActionLink("Start Job Locally", "Local", "Home", new { @class = "btn btn-primary" })
+    </div>
+</div>
