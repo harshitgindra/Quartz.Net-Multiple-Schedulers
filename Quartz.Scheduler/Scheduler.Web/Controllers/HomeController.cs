@@ -30,12 +30,7 @@ namespace Scheduler.Web.Controllers
         private async Task CreateJob(NameValueCollection configuration, string serverName)
         {
             StdSchedulerFactory factory = new StdSchedulerFactory(configuration);
-
-            // get a scheduler
             IScheduler sched = await factory.GetScheduler();
-
-            //if (!sched.IsStarted)
-            //    await sched.Start();
 
             // define the job and tie it to our HelloJob class
             IJobDetail job = JobBuilder.Create<HelloJob>()
