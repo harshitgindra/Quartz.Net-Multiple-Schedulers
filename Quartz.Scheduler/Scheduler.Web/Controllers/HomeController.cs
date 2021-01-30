@@ -17,20 +17,25 @@ namespace Scheduler.Web.Controllers
 
         public async Task<ActionResult> Remote()
         {
-            await CreateJob(QuartzConfiguration.RemoteConfig(), "remote");
+            await CreateJob(QuartzConfiguration.RemoteConfig(), "remote", false);
             return View("Index");
         }
 
         public async Task<ActionResult> Local()
         {
-            await CreateJob(QuartzConfiguration.LocalConfig(), "local");
+            await CreateJob(QuartzConfiguration.LocalConfig(false), "local", true);
             return View("Index");
         }
 
-        private async Task CreateJob(NameValueCollection configuration, string serverName)
+        private async Task CreateJob(NameValueCollection configuration, string serverName, bool runLocally)
         {
             StdSchedulerFactory factory = new StdSchedulerFactory(configuration);
             IScheduler sched = await factory.GetScheduler();
+
+            if (runLocally && !sched.IsStarted)
+            {
+                await sched.Start();
+            }
 
             // define the job and tie it to our HelloJob class
             IJobDetail job = JobBuilder.Create<HelloJob>()

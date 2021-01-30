@@ -15,7 +15,7 @@ namespace Scheduler.Local
             {
                 Task.Run(async () =>
                 {
-                    StdSchedulerFactory factory = new StdSchedulerFactory(QuartzConfiguration.LocalConfig());
+                    StdSchedulerFactory factory = new StdSchedulerFactory(QuartzConfiguration.LocalConfig(false));
 
                     // get a scheduler
                     IScheduler sched = await factory.GetScheduler();
